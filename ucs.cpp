@@ -6,6 +6,7 @@
  **/
 #include <iostream>
 #include <queue>
+#include <stack>
 #include <vector>
 #include <string>
 using namespace std;
@@ -23,6 +24,7 @@ struct Node{
 	string name;
 	char state;
 	vector<Edge> edges;
+	int pathCost;
 	Node *parent;
 };
 
@@ -35,9 +37,27 @@ struct Graph{
 	vector<Node> nodes;
 }graph;
 
+struct compareNodes{
+	bool operator() (Node* a, Node* b){
+		if(a->pathCost > b->pathCost)
+            return true;
+		return false;
+	}
+};
 
-void UCS(Node *, Node *);
+void refreshFrontier();
+void makeSolution(Node*);
+bool UCS(Node *, Node *);
 
+//int treeA=195, treeB=196, treeC = 192;
+//string treeLine = ""+char(treeB);
+//treeLine = treeLine+char(treeB);treeLine = treeLine+char(treeB);
+
+//string treeBranch = treeA;
+//inline string treeBrunch(int a,int b){ return (a<b-1) ? char(treeA)+treeLine : char(treeC)+treeLine; }
+vector <Node*> explored;
+priority_queue <Node*, vector<Node*>, compareNodes> frontier;
+stack<Node*> solution;
 
 int main(){
 	string nodeName;
@@ -57,7 +77,8 @@ int main(){
 		n.number = i + 1;
 		n.name = nodeName;
 		n.state = UNVISITED;
-
+        n.pathCost = 0;
+        n.parent = nullptr;
 		graph.nodes.push_back(n);
 	}
 
@@ -67,7 +88,7 @@ int main(){
 
     /** Prints the cities with serial number **/
 	for (int i = 0; i < nodeNumber; i++){
-		cout << i + 1 << ". " << graph.nodes[i].name << "\t";
+		cout << i + 1 << ". " << graph.nodes[i].name << "\n";
 	}
 
 	cout << "\n\n";
@@ -103,18 +124,103 @@ int main(){
 		for (int j = 0; j < edges; j++){
 			Edge edge = node.edges[j];
 
-			cout << "\t(" << edge.endNode->name << ", " << edge.cost << ")\n";
+			cout << "\t"<<"(" << edge.endNode->name << ", " << edge.cost << ")\n";
 		}
 
 		cout << endl;
 	}
 	cout << endl;
 
-	UCS(&graph.nodes[0], &graph.nodes[2-1]);
+    cout << "Uniform-cost search:\n\n";
+	if(UCS(&graph.nodes[0], &graph.nodes[2-1])){
+        Node *node;
+        cout << "Path: " ;
+        if(!solution.empty()){
+            while(true){
+                node = solution.top();
+                solution.pop();
+                if(solution.empty())
+                    break;
+                cout << "(" << node->number << ". " << node->name << ") -> ";
+            }
+            cout <<  "(" << node->number << ". " << node->name << ")";
+            cout << "\n\nTotal Cost: " << node->pathCost;
+        }
+	}
+	else {
+        cout << "Goal not found.";
+	}
 
 	return 0;
 }
 
-void UCS(Node *startNode, Node *endNode) {
+bool UCS(Node *startNode, Node *goalNode) {
+    startNode->pathCost = 0;
+    startNode->state = VISITING;
+    frontier.push(startNode);
 
+    while(true){
+        if(frontier.empty()){
+            return false;
+        }
+        Node *node = frontier.top();
+        frontier.pop();
+
+        //cout << node->name << " " << node->pathCost <<endl;
+        if(node == goalNode){
+            makeSolution(node);
+            return true;
+        }
+        node->state = VISITED;
+        explored.push_back(node);
+
+        size_t numOfChild = node->edges.size();
+        for(int i=0; i<numOfChild; i++){
+            Edge edge = node->edges[i];
+            int pathCost = node->pathCost + edge.cost;
+            Node *child = edge.endNode;
+
+            if(child->state == UNVISITED){
+                child->pathCost = pathCost;
+                child->parent = node;
+                child->state = VISITING;
+                frontier.push(child);
+                //cout << "\t" << child->name << " " << child->pathCost << endl;
+            }
+            else if(child->state==VISITING && child->pathCost > pathCost){
+                //cout << "\t" << child->name << " " << child->pathCost << " " << pathCost <<endl;
+                child->pathCost = pathCost;
+                child->parent = node;
+                refreshFrontier();
+            }
+        }
+    }
+    return false;
 }
+
+void refreshFrontier(){
+    Node *node = frontier.top();
+    frontier.pop();
+    frontier.push(node);
+//    size_t sz= frontier.size();
+//    while(sz){
+//        Node *node = frontier.top();
+//        frontier.pop();
+//
+//        frontier.push(node);
+//        sz--;
+//    }
+}
+void makeSolution(Node *node){
+    while(node != nullptr){
+        solution.push(node);
+        //cout << node->name << endl;
+        //if (node->parent != nullptr)
+        if(node->parent == nullptr)
+            break;
+
+        node = node->parent;
+        //cout << "\t" <<node->name << endl;
+    }
+}
+
