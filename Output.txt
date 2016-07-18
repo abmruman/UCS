@@ -1,0 +1,250 @@
+Number of nodes: 20
+Enter node names sequentially:
+Arad
+Bucharest
+Craiova
+Drobeta
+Eforie
+Fagaras
+Giurgiu
+Hirsova
+Iasi
+Lugoj
+Mehadia
+Neamt
+Oradea
+Pitesti
+Rimnicu Vilcea
+Sibiu
+Timisoara
+Urziceni
+Vaslui
+Zerind
+ID of the nodes:
+1. Arad
+2. Bucharest
+3. Craiova
+4. Drobeta
+5. Eforie
+6. Fagaras
+7. Giurgiu
+8. Hirsova
+9. Iasi
+10. Lugoj
+11. Mehadia
+12. Neamt
+13. Oradea
+14. Pitesti
+15. Rimnicu Vilcea
+16. Sibiu
+17. Timisoara
+18. Urziceni
+19. Vaslui
+20. Zerind
+
+
+Taking input for neighbor cities:
+
+1. Arad
+Number of connected nodes: 3
+Enter ID(s) and cost of the node(s):
+16 140
+17 118
+20 75
+2. Bucharest
+Number of connected nodes: 4
+Enter ID(s) and cost of the node(s):
+6 211
+7 90
+14 101
+18 85
+3. Craiova
+Number of connected nodes: 3
+Enter ID(s) and cost of the node(s):
+4 120
+14 138
+15 146
+4. Drobeta
+Number of connected nodes: 2
+Enter ID(s) and cost of the node(s):
+3 120
+11 75
+5. Eforie
+Number of connected nodes: 1
+Enter ID(s) and cost of the node(s):
+8 85
+6. Fagaras
+Number of connected nodes: 2
+Enter ID(s) and cost of the node(s):
+2 211
+16 99
+7. Giurgiu
+Number of connected nodes: 1
+Enter ID(s) and cost of the node(s):
+2 90
+8. Hirsova
+Number of connected nodes: 2
+Enter ID(s) and cost of the node(s):
+5 86
+18 98
+9. Iasi
+Number of connected nodes: 2
+Enter ID(s) and cost of the node(s):
+12 87
+19 92
+10. Lugoj
+Number of connected nodes: 2
+Enter ID(s) and cost of the node(s):
+11 70
+17 111
+11. Mehadia
+Number of connected nodes: 2
+Enter ID(s) and cost of the node(s):
+4 75
+10 70
+12. Neamt
+Number of connected nodes: 1
+Enter ID(s) and cost of the node(s):
+9 87
+13. Oradea
+Number of connected nodes: 2
+Enter ID(s) and cost of the node(s):
+16 151
+20 71
+14. Pitesti
+Number of connected nodes: 2
+Enter ID(s) and cost of the node(s):
+2 101
+15 97
+15. Rimnicu Vilcea
+Number of connected nodes: 3
+Enter ID(s) and cost of the node(s):
+3 146
+14 97
+16 80
+16. Sibiu
+Number of connected nodes: 4
+Enter ID(s) and cost of the node(s):
+1 140
+6 99
+13 151
+15 80
+17. Timisoara
+Number of connected nodes: 2
+Enter ID(s) and cost of the node(s):
+1 118
+10 111
+18. Urziceni
+Number of connected nodes: 3
+Enter ID(s) and cost of the node(s):
+2 85
+8 98
+19 142
+19. Vaslui
+Number of connected nodes: 2
+Enter ID(s) and cost of the node(s):
+9 92
+18 142
+20. Zerind
+Number of connected nodes: 2
+Enter ID(s) and cost of the node(s):
+1 75
+13 71
+Graph:
+1. Arad:
+        (Sibiu, 140)
+        (Timisoara, 118)
+        (Zerind, 75)
+
+2. Bucharest:
+        (Fagaras, 211)
+        (Giurgiu, 90)
+        (Pitesti, 101)
+        (Urziceni, 85)
+
+3. Craiova:
+        (Drobeta, 120)
+        (Pitesti, 138)
+        (Rimnicu Vilcea, 146)
+
+4. Drobeta:
+        (Craiova, 120)
+        (Mehadia, 75)
+
+5. Eforie:
+        (Hirsova, 85)
+
+6. Fagaras:
+        (Bucharest, 211)
+        (Sibiu, 99)
+
+7. Giurgiu:
+        (Bucharest, 90)
+
+8. Hirsova:
+        (Eforie, 86)
+        (Urziceni, 98)
+
+9. Iasi:
+        (Neamt, 87)
+        (Vaslui, 92)
+
+10. Lugoj:
+        (Mehadia, 70)
+        (Timisoara, 111)
+
+11. Mehadia:
+        (Drobeta, 75)
+        (Lugoj, 70)
+
+12. Neamt:
+        (Iasi, 87)
+
+13. Oradea:
+        (Sibiu, 151)
+        (Zerind, 71)
+
+14. Pitesti:
+        (Bucharest, 101)
+        (Rimnicu Vilcea, 97)
+
+15. Rimnicu Vilcea:
+        (Craiova, 146)
+        (Pitesti, 97)
+        (Sibiu, 80)
+
+16. Sibiu:
+        (Arad, 140)
+        (Fagaras, 99)
+        (Oradea, 151)
+        (Rimnicu Vilcea, 80)
+
+17. Timisoara:
+        (Arad, 118)
+        (Lugoj, 111)
+
+18. Urziceni:
+        (Bucharest, 85)
+        (Hirsova, 98)
+        (Vaslui, 142)
+
+19. Vaslui:
+        (Iasi, 92)
+        (Urziceni, 142)
+
+20. Zerind:
+        (Arad, 75)
+        (Oradea, 71)
+
+
+
+Enter start node: 1
+
+Enter goal node: 2
+
+
+Uniform-cost search:
+
+Path: (1.Arad) -> (16.Sibiu) -> (15.Rimnicu Vilcea) -> (14.Pitesti) -> (2.Bucharest)
+
+Total Cost: 418

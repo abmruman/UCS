@@ -49,19 +49,13 @@ void refreshFrontier();
 void makeSolution(Node*);
 bool UCS(Node *, Node *);
 
-//int treeA=195, treeB=196, treeC = 192;
-//string treeLine = ""+char(treeB);
-//treeLine = treeLine+char(treeB);treeLine = treeLine+char(treeB);
-
-//string treeBranch = treeA;
-//inline string treeBrunch(int a,int b){ return (a<b-1) ? char(treeA)+treeLine : char(treeC)+treeLine; }
 vector <Node*> explored;
 priority_queue <Node*, vector<Node*>, compareNodes> frontier;
 stack<Node*> solution;
 
 int main(){
 	string nodeName;
-	int nodeNumber;
+	int nodeNumber, startNode, goalNode;;
 
 	cout << "Number of nodes: ";
 	cin >> nodeNumber;
@@ -94,6 +88,7 @@ int main(){
 	cout << "\n\n";
 
 	/** Takes input for neighbor cities **/
+	cout << "Taking input for neighbor cities: \n\n";
 	for (int i = 0; i < nodeNumber; i++){
 		int connected;
 
@@ -129,10 +124,16 @@ int main(){
 
 		cout << endl;
 	}
-	cout << endl;
 
-    cout << "Uniform-cost search:\n\n";
-	if(UCS(&graph.nodes[0], &graph.nodes[2-1])){
+	cout << endl;
+	cout << "\nEnter start node: ";
+    cin >> startNode;
+	cout << "\nEnter goal node: ";
+    cin >> goalNode;
+
+    cout << "\n\nUniform-cost search:\n\n";
+
+	if(UCS(&graph.nodes[startNode-1], &graph.nodes[goalNode-1])){
         Node *node;
         cout << "Path: " ;
         if(!solution.empty()){
@@ -141,9 +142,9 @@ int main(){
                 solution.pop();
                 if(solution.empty())
                     break;
-                cout << "(" << node->number << ". " << node->name << ") -> ";
+                cout << "(" << node->number << "." << node->name << ") -> ";
             }
-            cout <<  "(" << node->number << ". " << node->name << ")";
+            cout <<  "(" << node->number << "." << node->name << ")";
             cout << "\n\nTotal Cost: " << node->pathCost;
         }
 	}
